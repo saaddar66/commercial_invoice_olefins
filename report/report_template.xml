@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_customer_invoice_custom_document">
+    <template id="report_commercial_invoice_olefins_document">
         <t t-call="web.basic_layout">
 
             <!-- ═══════════════════════════════════════════════════
@@ -74,7 +74,8 @@
 
                 <!-- ─── TITLE ──────────────────────────────────────── -->
                 <div class="text-center" style="margin-bottom: 16px;">
-                    <h2 style="font-size: 14pt; font-weight: bold; margin: 0;">CUSTOMER INVOICE</h2>
+                    <h2 style="font-size: 14pt; font-weight: bold; margin: 0;">Olefins (Private) Limited</h2>
+                    <h2 style="font-size: 14pt; font-weight: bold; margin: 0;">COMMERCIAL INVOICE</h2>
                 </div>
 
                 <!-- ─── INFO ROW: Invoice / Delivery Order / Sale Order / PO / Payment ── -->
@@ -120,11 +121,6 @@
                         <span t-esc="so_dates"/>
                     </div>
 
-                    <!-- Payment Term -->
-                    <div class="col">
-                        <strong>Payment Term:</strong><br/>
-                        <span t-field="o.invoice_payment_term_id.name"/>
-                    </div>
                 </div>
 
                 <!-- ─── ADDRESSES (Bill To / Ship To) ──────────────── -->
@@ -140,6 +136,7 @@
                         <span t-field="o.partner_id.country_id.name"/><br/>
                         <strong>Cell:</strong>
                         <span t-field="o.partner_id.phone"/><br/>
+                        <strong>NIC:</strong><br/>
                         <strong>NTN:</strong> <span t-field="o.partner_id.vat"/><br/>
                         <strong>STRN:</strong> 
                         <t t-if="'x_studio_strn' in o.partner_id._fields">
@@ -167,20 +164,6 @@
                         <span t-esc="shipping.country_id.name"/><br/>
                         <strong>Cell:</strong>
                         <span t-esc="shipping.phone"/><br/>
-                        <strong>NTN:</strong> <span t-esc="shipping.vat"/><br/>
-                        <strong>STRN:</strong> 
-                        <t t-if="'x_studio_strn' in shipping._fields">
-                            <span t-esc="shipping.x_studio_strn"/>
-                        </t>
-                        <t t-elif="'x_strn' in shipping._fields">
-                            <span t-esc="shipping.x_strn"/>
-                        </t>
-                        <t t-elif="'strn' in shipping._fields">
-                            <span t-esc="shipping.strn"/>
-                        </t>
-                        <t t-else="">
-                            <span t-esc="shipping.vat"/>
-                        </t>
                     </div>
                 </div>
 
@@ -198,11 +181,11 @@
                             <th class="text-right" style="width:7%;">Quantity</th>
                             <th style="width:5%;">UoM</th>
                             <th class="text-right" style="width:9%;">Unit Price</th>
-                            <th class="text-right" style="width:5%;">Trade Disc.</th>
-                            <th class="text-right" style="width:8%;">Distributor Price after Trade Disc.</th>
+                            <th class="text-right" style="width:5%;">Additional Disc</th>
+                            <th class="text-right" style="width:8%;">Unit Price after Disc</th>
                             <th class="text-right" style="width:8%;">Value Excluding Sales Tax</th>
-                            <th class="text-right" style="width:8%;">Sales Tax</th>
-                            <th class="text-right" style="width:9%;">Further Tax</th>
+                            <th class="text-right" style="width:8%;">Sales tax 18%</th>
+                            <th class="text-right" style="width:9%;">Further Tax 4%</th>
                             <th class="text-right" style="width:9%;">Value Including Sales Tax</th>
                         </tr>
                     </thead>
@@ -292,10 +275,26 @@
                             </td>
                         </tr>
 
-                        <!-- ── ADVANCE TAX ── -->
+                        <!-- ── ADDITIONAL DISCOUNTS & FREIGHT ── -->
                         <tr>
                             <td colspan="9">
-                                <strong>Advance Tax - 0%</strong>
+                                <strong>Fixed Discount</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong>0.00</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="9">
+                                <strong>Percentage Discount</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong>0.00</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="9">
+                                <strong>Freight</strong>
                             </td>
                             <td class="text-right">
                                 <strong>0.00</strong>
@@ -336,14 +335,14 @@
     <!-- ═══════════════════════════════════════════════════════════════
          OUTER WRAPPER — iterates docs, injects fixed footer per page
          ═══════════════════════════════════════════════════════════════ -->
-    <template id="report_customer_invoice_custom">
+    <template id="report_commercial_invoice_olefins">
         <t t-call="web.html_container">
             <div class="footer" style="width:100%; font-family: DejaVu Sans, Liberation Sans, sans-serif; font-size: 10px;padding-bottom:10px;">
                 
                 <div class="text-center" style="padding-bottom:0px;">
                     "This is a system generated Invoice and does not require any signature"<br/>
-                    Plot No: H 23/3 Shed No 1-5, Landhi Industrial Area, Bin Qasim Town, Karachi<br/>
-                    NTN: 7246587-3, GST: 32-77-8761-285-13, Tel: 9221-35130303, info_sales@anabatla.com
+                    Plot No: H 23/3 Shed No 7, Landhi Industrial Area, Bin Qasim Town, Karachi<br/>
+                    NTN: 8240930-8, Tel: 9221-35130303, olefins_sales@anabatla.com
                 </div>
 
                 <div style="white-space: nowrap; display: flex; justify-content: space-between; font-size: 9px; margin-top: 8px; border-top: 1px solid #bbb; padding-top: 4px; padding-bottom: 6px;">
@@ -365,7 +364,7 @@
 
             <t t-foreach="docs" t-as="o">
                 <!-- Invoice body -->
-                <t t-call="customer_invoice.report_customer_invoice_custom_document"/>
+                <t t-call="commercial_invoice_olefins.report_commercial_invoice_olefins_document"/>
             </t>
         </t>
     </template>

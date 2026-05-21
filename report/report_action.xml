@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="paperformat_custom_customer_invoice" model="report.paperformat">
-        <field name="name">Custom Customer Invoice A4</field>
+    <record id="paperformat_commercial_invoice_olefins" model="report.paperformat">
+        <field name="name">Custom Commercial Invoice A4</field>
         <field name="default" eval="True"/>
         <field name="format">A4</field>
         <field name="page_height">0</field>
@@ -16,15 +16,15 @@
         <field name="dpi">90</field>
     </record>
 
-    <record id="action_report_customer_invoice_custom" model="ir.actions.report">
-        <field name="name">Customer Invoice</field>
+    <record id="action_report_commercial_invoice_olefins" model="ir.actions.report">
+        <field name="name">Commercial Invoice Olefins</field>
         <field name="model">account.move</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">customer_invoice.report_customer_invoice_custom</field>
-        <field name="report_file">customer_invoice.report_customer_invoice_custom</field>
-        <field name="print_report_name">'Customer_Invoice_%s' % (object.name or 'Draft')</field>
+        <field name="report_name">commercial_invoice_olefins.report_commercial_invoice_olefins</field>
+        <field name="report_file">commercial_invoice_olefins.report_commercial_invoice_olefins</field>
+        <field name="print_report_name">'Commercial_Invoice_Olefins_%s' % (object.name or 'Draft')</field>
         <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="binding_type">report</field>
-        <field name="paperformat_id" ref="customer_invoice.paperformat_custom_customer_invoice"/>
+        <field name="paperformat_id" ref="commercial_invoice_olefins.paperformat_commercial_invoice_olefins"/>
     </record>
 </odoo>

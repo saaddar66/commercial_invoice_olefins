@@ -1,5 +1,5 @@
 {
-    'name': 'Customer Invoice Report',
+    'name': 'Commercial Invoice Olefins',
     'version': '18.0.1.0.0',
     'summary': 'Customer Invoice PDF Report',
     'description': 'Custom Customer Invoice PDF report for Odoo 18.',
